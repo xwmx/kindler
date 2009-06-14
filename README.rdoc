@@ -1,0 +1,3 @@
+= KindleR
+
+KindleR is a library for packaging and formatting MOBI files.

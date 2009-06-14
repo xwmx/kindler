@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'mobi'
+
+unless file = ARGV[0]
+  raise ArgumentError
+end
+
+mobi = Mobi.new
+mobi.title = File.basename(file, '.html')
+mobi.content = File.open(file).read
+mobi.write_file "#{File.basename(file, '.html')}.mobi"
