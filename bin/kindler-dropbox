@@ -1,0 +1,72 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'pathname'
+
+module Kindler
+  class Dropbox
+    SUPPORTED_FILE_FORMATS = {
+      :documents => ['mobi', 'prc', 'pdf', 'txt', 'azw', 'azw1'],
+      :music => ['mp3'],
+      :audible => ['aa', 'aax']
+    }
+
+    def self.run
+      new.run
+    end
+
+    def run
+      if kindle_is_connected? && dropbox.exist?
+        process_files
+      end
+
+      run_post_mount_hook
+    end
+
+    protected
+      def drive
+        @drive ||= Pathname.new('/Volumes/Kindle')
+      end
+
+      def dropbox
+        @dropbox ||= Pathname.new(ENV['KINDLE_DROPBOX'] || "/Users/#{ENV['USER']}/Documents/Kindle")
+      end
+
+      def kindle_is_connected?
+        drive.directory?
+      end
+
+      def process_files
+        files_to_be_processed.each do |file|
+          target_folder = map_folder_to File.extname(file)
+
+          if target_folder
+            FileUtils.mv(file, target_folder, :force => true)
+          end
+        end
+      end
+
+      def files_to_be_processed
+        @files_to_be_processed ||= dropbox.entries.reject { |f| f.to_s.match(/^\./) }.map { |file| dropbox.join(file) }
+      end
+
+      def map_folder_to(file_extension)
+        return nil unless file_extension
+        file_extension = file_extension.delete('.')
+        folder = SUPPORTED_FILE_FORMATS.find(proc {[]}) { |folder_map| folder_map[1].include?(file_extension) }[0]
+        folder ? drive.join(folder.to_s)  : nil
+      end
+
+      def run_post_mount_hook
+        if post_mount_hook.exist?
+          system(post_mount_hook)
+        end
+      end
+
+      def post_mount_hook
+        drive.join(".post-mount")
+      end
+  end
+end
+
+Kindler::Dropbox.run
