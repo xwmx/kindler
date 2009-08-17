@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExtendedHeaderTest < Test::Unit::TestCase
+class TestExtendedHeader < Test::Unit::TestCase
   def test_open_hello
     mobi = Mobi.new(fixture(:hello))
 

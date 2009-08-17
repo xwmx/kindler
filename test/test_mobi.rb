@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MobiTest < Test::Unit::TestCase
+class TestMobi < Test::Unit::TestCase
   def test_default
     mobi = Mobi.new
 
