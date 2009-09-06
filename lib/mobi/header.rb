@@ -150,6 +150,8 @@ class Mobi
     def initialize
       super
 
+      @type, @language, @encoding = nil
+
       @expunged = @dirty = @deleted = @private = false
 
       DEFAULTS.each do |attr, value|
