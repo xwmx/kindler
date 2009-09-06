@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'helper'
 
 class TestExtendedHeader < Test::Unit::TestCase
   def test_open_hello
