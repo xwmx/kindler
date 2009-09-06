@@ -24,14 +24,5 @@ unless file = ARGV[0]
 end
 
 mobi = Palm::PDB.new(file)
-name ||= mobi.name
-header = mobi.data[0].data
-
-offset = header.unpack('@84N')[0]
-length = header.unpack('@88N')[0]
-header[offset...offset+length] = ("\000" * length)
-
-header[88...88+4] = [name.length].pack('N*')
-header[offset...offset+name.length] = name
-
+Mobi.rename(mobi, name || mobi.name)
 mobi.write_file(file)

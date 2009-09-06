@@ -1,6 +1,26 @@
 require 'test_helper'
+require 'tempfile'
 
 class TestMobi < Test::Unit::TestCase
+  def test_rename
+    temp = Tempfile.new('hello')
+    temp << File.read(fixture(:hello))
+    temp.flush
+
+    new_title = 'hello again'
+
+    mobi = Palm::PDB.new(temp.path)
+    Mobi.rename(mobi, new_title)
+    mobi.write_file(temp.path)
+
+    mobi = Mobi.new(temp.path)
+    assert_equal new_title, mobi.name
+    assert_equal new_title, mobi.title
+    assert_equal new_title, mobi.header.full_name
+  ensure
+    temp.unlink
+  end
+
   def test_default
     mobi = Mobi.new
 

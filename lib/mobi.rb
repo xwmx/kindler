@@ -4,6 +4,23 @@ class Mobi < Palm::PDB
   autoload :ExtendedHeader, 'mobi/extended_header'
   autoload :Header, 'mobi/header'
 
+  # Optimized version of Mobi#title= that does not parse the
+  # entire document.
+  def self.rename(pdb, name)
+    header = pdb.data[0].data
+
+    offset = header.unpack('@84N')[0]
+    length = header.unpack('@88N')[0]
+    header[offset...offset+length] = ("\000" * length)
+
+    header[88...88+4] = [name.length].pack('N*')
+    header[offset...offset+name.length] = name
+
+    pdb.name = name
+
+    pdb
+  end
+
   def initialize(from = nil)
     super
 
