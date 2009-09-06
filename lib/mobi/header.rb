@@ -135,7 +135,7 @@ class Mobi
       offset = 256
       h.exth_count.times do
         offset += h.extended_headers.last.length if h.extended_headers.last
-        h.extended_headers << ExtendedHeader.from_binary(data, offset)
+        h.extended_headers << ExtendedHeader.from_binary(data, offset, h.exth_length)
       end
 
       h

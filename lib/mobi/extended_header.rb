@@ -35,9 +35,10 @@ class Mobi
       504 => "cdecontentkey"
     }
 
-    def self.from_binary(data, offset)
+    def self.from_binary(data, offset, max = nil)
       type = data.unpack("@#{offset + 4}N")[0]
       length = data.unpack("@#{offset + 8}N")[0]
+      raise RangeError if max && (offset - 256 + length) > max
       data = data.unpack("@#{offset + 12}C#{length - 8}")
       new(type, data)
     end
