@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'mobi'
+require 'optparse'
+
+name = nil
+
+opts = OptionParser.new("", 24, '  ') { |opts|
+  opts.banner = "Usage: kindler-rename book.mobi [options]"
+
+  opts.on("--title NAME", "New title") { |n| name = m }
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  opts.parse!
+}
+
+unless file = ARGV[0]
+  puts opts
+  exit
+end
+
+mobi = Palm::PDB.new(file)
+name ||= mobi.name
+header = mobi.data[0].data
+
+offset = header.unpack('@84N')[0]
+length = header.unpack('@88N')[0]
+header[offset...offset+length] = ("\000" * length)
+
+header[88...88+4] = [name.length].pack('N*')
+header[offset...offset+name.length] = name
+
+mobi.write_file(file)
