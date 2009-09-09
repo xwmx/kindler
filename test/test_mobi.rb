@@ -154,8 +154,8 @@ class TestMobi < Test::Unit::TestCase
       0x0,
       0x4D4F4249, # MOBI
       232,
-      Mobi::Header::TYPES.index('BOOK'),
-      Mobi::Header::ENCODING.index('ISO-8859-1'),
+      Mobi::Header::TYPES.key('BOOK'),
+      Mobi::Header::ENCODING.key('ISO-8859-1'),
       477553583,
       4,
       0xffffffff,

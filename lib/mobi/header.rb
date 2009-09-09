@@ -183,7 +183,7 @@ class Mobi
     end
 
     def type=(type)
-      @type = TYPES.index(type) || type
+      @type = TYPES.key(type) || type
     end
 
     def encoding
@@ -191,11 +191,11 @@ class Mobi
     end
 
     def encoding=(encoding)
-      @encoding = ENCODING.index(encoding) || encoding
+      @encoding = ENCODING.key(encoding) || encoding
     end
 
     def language
-      LANGUAGES.index(@language)
+      LANGUAGES.key(@language)
     end
 
     def language=(language)
@@ -214,8 +214,8 @@ class Mobi
         repack_as_int([encryption, 0], 'n2'),
         repack_as_int([identifier], 'a4'),
         length,
-        TYPES.index(type),
-        ENCODING.index(encoding),
+        TYPES.key(type),
+        ENCODING.key(encoding),
         id,
         generator_version,
         0xffffffff,

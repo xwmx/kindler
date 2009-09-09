@@ -1,5 +1,10 @@
 require 'palm'
 
+class Hash
+  # 1.8 does not have Hash#key
+  alias_method :key, :index unless method_defined?(:key)
+end
+
 class Mobi < Palm::PDB
   autoload :ExtendedHeader, 'mobi/extended_header'
   autoload :Header, 'mobi/header'
