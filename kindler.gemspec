@@ -17,6 +17,5 @@ Gem::Specification.new do |s|
   ]
   s.executables = ['kindler', 'kindler-dropbox', 'kindler-rename']
   s.extra_rdoc_files = %w[README.rdoc MIT-LICENSE]
-  s.require_paths = %w[lib]
   s.add_dependency 'palm', '>= 0.0.4'
 end
