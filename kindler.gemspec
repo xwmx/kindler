@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
     "lib/mobi/header.rb"
   ]
   s.executables = ['kindler', 'kindler-dropbox', 'kindler-rename']
-  s.extra_rdoc_files = %w[README.rdoc MIT-LICENSE]
+  s.extra_rdoc_files = %w[README.rdoc LICENSE]
   s.add_dependency 'palm', '>= 0.0.4'
 end
