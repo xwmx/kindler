@@ -8,7 +8,7 @@ name = nil
 opts = OptionParser.new("", 24, '  ') { |opts|
   opts.banner = "Usage: kindler-rename book.mobi [options]"
 
-  opts.on("--title NAME", "New title") { |n| name = m }
+  opts.on("--title NAME", "New title") { |n| name = n }
 
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
