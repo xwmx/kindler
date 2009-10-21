@@ -1,4 +1,4 @@
-require 'palm'
+require 'palm/pdb'
 
 class Hash
   # 1.8 does not have Hash#key
