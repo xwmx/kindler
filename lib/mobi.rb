@@ -1,4 +1,5 @@
 require 'palm/pdb'
+require 'stringio'
 
 class Hash
   # 1.8 does not have Hash#key
