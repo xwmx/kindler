@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = 'kindler'
-  s.version  = '0.1.3'
-  s.date     = '2009-10-21'
+  s.version  = '0.1.4'
+  s.date     = '2009-11-29'
   s.summary  = 'Ruby Kindle library'
   s.description = <<-EOS
     KindleR is a library for packaging and formatting MOBI files.
